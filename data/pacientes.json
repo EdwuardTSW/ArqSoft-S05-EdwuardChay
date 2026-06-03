@@ -26,5 +26,26 @@
       "Apellido": "Romero",
       "Email": "edith@gmail.com",
       "Telefono": "555-0004"
+    },
+    {
+      "Id": 5,
+      "Nombre": "Mario",
+      "Apellido": "Chim",
+      "Email": "mario@gmail.com",
+      "Telefono": "555-0005"
+    },
+    {
+      "Id": 6,
+      "Nombre": "Fernanda",
+      "Apellido": "Hernández",
+      "Email": "fernanda@gmail.com",
+      "Telefono": "555-0006"
+    },
+    {
+      "Id": 7,
+      "Nombre": "Pedro",
+      "Apellido": "Sánchez",
+      "Email": "pedro@gmail.com",
+      "Telefono": "555-0007"
     }
   ]

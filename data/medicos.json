@@ -26,5 +26,33 @@
       "Apellido": "Pedrozo",
       "Especialidad": "Fisicoquímica",
       "NumeroLicencia": "FQ-90289"
+    },
+    {
+      "Id": 5,
+      "Nombre": "Ana",
+      "Apellido": "Pérez",
+      "Especialidad": "Farmacia",
+      "NumeroLicencia": "FQ-90909"
+    },
+    {
+      "Id": 6,
+      "Nombre": "Juan",
+      "Apellido": "García",
+      "Especialidad": "Cardiología",
+      "NumeroLicencia": "CA-30117"
+    },
+    {
+      "Id": 7,
+      "Nombre": "María",
+      "Apellido": "López",
+      "Especialidad": "Pediatría",
+      "NumeroLicencia": "PD-20835"
+    },
+    {
+      "Id": 8,
+      "Nombre": "Luis",
+      "Apellido": "Martínez",
+      "Especialidad": "Cirugía",
+      "NumeroLicencia": "CA-30117"
     }
   ]

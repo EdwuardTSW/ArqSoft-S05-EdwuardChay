@@ -34,5 +34,23 @@
       "Hora": "12:00",
       "Motivo": "Cirugía",
       "Estado": "Confirmada"
+    },
+    {
+      "Id": 5,
+      "PacienteId": 5,
+      "MedicoId": 5,
+      "Fecha": "2026-06-03",
+      "Hora": "13:00",
+      "Motivo": "Consulta general",
+      "Estado": "Pendiente"
+    },
+    {
+      "Id": 6,
+      "PacienteId": 6,
+      "MedicoId": 6,
+      "Fecha": "2026-06-03",
+      "Hora": "14:00",
+      "Motivo": "Consulta general",
+      "Estado": "Pendiente"
     }
   ]
