@@ -6,10 +6,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+
 var dataPath = Path.Combine(builder.Environment.ContentRootPath, "data");
-builder.Services.AddScoped<IPacienteRepository>(_ => new JsonPacienteRepository(dataPath));
+/*builder.Services.AddScoped<IPacienteRepository>(_ => new JsonPacienteRepository(dataPath));
 builder.Services.AddScoped<IMedicoRepository>(_ => new JsonMedicoRepository(dataPath));
 builder.Services.AddScoped<ICitaRepository>(_ => new JsonCitaRepository(dataPath));
+*/
+
+var csvPacientes = Path.Combine(dataPath, "pacientes.csv");
+var csvMedicos   = Path.Combine(dataPath, "medicos.csv");
+var csvCitas     = Path.Combine(dataPath, "citas.csv");
+
+builder.Services.AddSingleton<IPacienteRepository>(_ => new CsvPacienteRepository(csvPacientes));
+builder.Services.AddSingleton<IMedicoRepository>  (_ => new CsvMedicoRepository(csvMedicos));
+builder.Services.AddSingleton<ICitaRepository>    (_ => new CsvCitaRepository(csvCitas));
 
 var app = builder.Build();
 
