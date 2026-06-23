@@ -102,5 +102,7 @@ namespace CitasApp.Infrastructure.Repositories
                 EscribirTodos(citas);
             }
         }
+
+        public Cita? Confirmar(int citaId) => throw new NotImplementedException();
     }
 }

@@ -131,5 +131,7 @@ namespace CitasApp.Infrastructure.Repositories
             cmd.Parameters.AddWithValue("$id", id);
             cmd.ExecuteNonQuery();
         }
+
+        public Cita? Confirmar(int citaId) => throw new NotImplementedException();
     }
 }

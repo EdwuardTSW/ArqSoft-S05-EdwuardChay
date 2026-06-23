@@ -6,5 +6,6 @@ namespace CitasApp.Domain.Interfaces
     {
         List<Cita> ObtenerTodos();
         List<Cita> ObtenerPorPaciente(int pacienteId);
+        Cita? Confirmar(int citaId);
     }
 }

@@ -33,5 +33,28 @@ namespace CitasApp.Infrastructure.Repositories
 
         public List<Cita> ObtenerPorPaciente(int pacienteId) =>
             ObtenerTodos().Where(c => c.PacienteId == pacienteId).ToList();
+
+        public Cita? Confirmar(int citaId)
+        {
+            var citas = ObtenerTodos();
+            var cita = citas.FirstOrDefault(c => c.Id == citaId);
+            if (cita == null) return null;
+
+            cita.Estado = "Confirmada";
+
+            var citasJson = citas.Select(c => new CitaJson
+            {
+                Id = c.Id,
+                PacienteId = c.PacienteId,
+                MedicoId = c.MedicoId,
+                Fecha = c.Fecha.ToString("yyyy-MM-dd"),
+                Hora = c.Hora.ToString("HH:mm"),
+                Motivo = c.Motivo,
+                Estado = c.Estado
+            }).ToList();
+
+            File.WriteAllText(_path, JsonSerializer.Serialize(citasJson, _options));
+            return cita;
+        }
     }
 }

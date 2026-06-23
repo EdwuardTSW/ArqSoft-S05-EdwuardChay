@@ -15,9 +15,9 @@ namespace CitasApp.Api.Controllers
                                PacienteService pacienteService,
                                MedicoService medicoService)
         {
-            _citaService     = citaService;
+            _citaService = citaService;
             _pacienteService = pacienteService;
-            _medicoService   = medicoService;
+            _medicoService = medicoService;
         }
 
         [HttpGet]
@@ -28,6 +28,14 @@ namespace CitasApp.Api.Controllers
         {
             var citas = _citaService.ObtenerPorPaciente(pacienteId);
             return citas.Count == 0 ? NotFound() : Ok(citas);
+        }
+
+        [HttpPost("confirmar/{citaId}")]
+        public IActionResult Confirmar(int citaId)
+        {
+            var cita = _citaService.Confirmar(citaId);
+            if (cita == null) return NotFound();
+            return Ok(new { mensaje = "Cita confirmada", cita });
         }
     }
 }
