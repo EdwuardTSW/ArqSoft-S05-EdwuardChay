@@ -46,6 +46,41 @@ Los repositorios `JsonPacienteRepository`, `JsonMedicoRepository` y `JsonCitaRep
 - .NET 10.0
 - Visual Studio 2022
 
+## Patrones GOF y resiliencia aplicados
+
+### Factory Method
+
+Se aplico en `CitasApp.Infrastructure/Factories/PacienteRepositoryFactory.cs` para decidir que implementacion de `IPacienteRepository` usar segun el entorno.
+
+- `Production` usa `SqlitePacienteRepository`.
+- Cualquier otro entorno usa `JsonPacienteRepository`.
+
+Esto evita cambiar controladores o servicios cuando cambia la persistencia entre desarrollo y produccion.
+
+### Decorator
+
+Se aplico en `CitasApp.Infrastructure/Decorators/LoggingPacienteRepository.cs` para agregar logs a las operaciones de pacientes sin modificar los repositorios reales.
+
+El registro se hace en `CitasApp.Api/Program.cs`: primero la Factory crea el repositorio real y despues el Decorator lo envuelve para registrar las operaciones.
+
+### Observer
+
+Se aplico en la confirmacion de citas.
+
+- `CitasApp.Domain/Interfaces/ICitaObserver.cs` define el contrato.
+- `SmsCitaObserver`, `EmailCitaObserver` y `DashboardCitaObserver` reaccionan al evento.
+- `CitaService` notifica a todos los observers cuando una cita cambia a `Confirmada`.
+
+Esto evita que el servicio principal dependa directamente de correo, SMS o dashboard.
+
+### Resiliencia Cloud-Native
+
+La practica simula conceptos cloud-native:
+
+- Factory Method representa configuracion por entorno, como variables de entorno en despliegues cloud.
+- Decorator representa logs centralizables, equivalentes a CloudWatch Logs.
+- Observer representa notificaciones desacopladas, similares a eventos con SNS/SQS.
+
 ## Ramas
 
 - `main` - estado inicial con persistencia JSON en un solo proyecto.

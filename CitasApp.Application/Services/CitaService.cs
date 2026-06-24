@@ -6,10 +6,12 @@ namespace CitasApp.Application.Services
     public class CitaService
     {
         private readonly ICitaRepository _repo;
+        private readonly List<ICitaObserver> _observers;
 
-        public CitaService(ICitaRepository repo)
+        public CitaService(ICitaRepository repo, IEnumerable<ICitaObserver> observers)
         {
             _repo = repo;
+            _observers = observers.ToList();
         }
 
         public List<Cita> ObtenerTodos() => _repo.ObtenerTodos();
@@ -21,8 +23,10 @@ namespace CitasApp.Application.Services
             var cita = _repo.Confirmar(citaId);
             if (cita != null)
             {
-                Console.WriteLine($"[SMS] Recordatorio enviado al paciente {cita.PacienteId} - cita el {cita.Fecha} a las {cita.Hora}");
-                Console.WriteLine($"[EMAIL] Confirmación enviada al paciente {cita.PacienteId} - motivo: {cita.Motivo} - estado: {cita.Estado}");
+                foreach (var observer in _observers)
+                {
+                    observer.OnCitaConfirmada(cita);
+                }
             }
             return cita;
         }

@@ -14,17 +14,17 @@ namespace CitasApp.Infrastructure.Decorators
 
         public List<Paciente> ObtenerTodos()
         {
-            Console.WriteLine("[DECORATOR] ObtenerTodos - inicio");
+            Console.WriteLine($"[{DateTime.Now}] [DECORATOR] ObtenerTodos pacientes - inicio");
             var result = _inner.ObtenerTodos();
-            Console.WriteLine($"[DECORATOR] ObtenerTodos - {result.Count} registros encontrados");
+            Console.WriteLine($"[{DateTime.Now}] [DECORATOR] ObtenerTodos pacientes - {result.Count} registros encontrados");
             return result;
         }
 
         public Paciente? ObtenerPorId(int id)
         {
-            Console.WriteLine($"[DECORATOR] ObtenerPorId({id}) - inicio");
+            Console.WriteLine($"[{DateTime.Now}] [DECORATOR] ObtenerPorId paciente: {id}");
             var result = _inner.ObtenerPorId(id);
-            Console.WriteLine($"[DECORATOR] ObtenerPorId({id}) - {(result != null ? "encontrado" : "no encontrado")}");
+            Console.WriteLine($"[{DateTime.Now}] [DECORATOR] ObtenerPorId paciente: {id} - {(result != null ? "encontrado" : "no encontrado")}");
             return result;
         }
     }

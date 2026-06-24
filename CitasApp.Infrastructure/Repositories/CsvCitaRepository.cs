@@ -103,6 +103,16 @@ namespace CitasApp.Infrastructure.Repositories
             }
         }
 
-        public Cita? Confirmar(int citaId) => throw new NotImplementedException();
+        public Cita? Confirmar(int citaId)
+        {
+            var citas = LeerTodos();
+            var cita = citas.FirstOrDefault(c => c.Id == citaId);
+
+            if (cita is null) return null;
+
+            cita.Estado = "Confirmada";
+            EscribirTodos(citas);
+            return cita;
+        }
     }
 }

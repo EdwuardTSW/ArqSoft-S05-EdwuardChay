@@ -132,6 +132,14 @@ namespace CitasApp.Infrastructure.Repositories
             cmd.ExecuteNonQuery();
         }
 
-        public Cita? Confirmar(int citaId) => throw new NotImplementedException();
+        public Cita? Confirmar(int citaId)
+        {
+            var cita = ObtenerPorId(citaId);
+            if (cita is null) return null;
+
+            ConfirmarCita(citaId);
+            cita.Estado = "Confirmada";
+            return cita;
+        }
     }
 }
