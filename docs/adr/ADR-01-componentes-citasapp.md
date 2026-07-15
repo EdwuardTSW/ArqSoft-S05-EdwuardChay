@@ -28,7 +28,7 @@ La decision relevante para el equipo tecnico es entender de que piezas grandes s
 
 Se documenta CitasApp como un sistema compuesto por cinco componentes principales: Web MVC, API REST, Application Services, Domain e Infrastructure. La API usa la capa de aplicacion para ejecutar casos de uso, mientras que la Web MVC consume directamente los contratos del dominio mediante repositorios registrados por inyeccion de dependencias.
 
-La infraestructura implementa los puertos definidos en el dominio y ofrece persistencia en archivos JSON, archivos CSV y SQLite. Tambien contiene implementaciones de patrones GOF usados por el proyecto: Factory Method, Decorator y Observer.
+La infraestructura implementa los puertos definidos en el dominio y ofrece persistencia en archivos JSON, archivos CSV y SQLite; Tambien contiene implementaciones de patrones GOF usados por el proyecto: Factory Method, Decorator y Observer.
 
 ### Diagrama C4 nivel 2: Componentes
 
