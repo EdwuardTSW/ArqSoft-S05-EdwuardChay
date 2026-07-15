@@ -105,6 +105,11 @@ secrets.json
 *.cache
 *.pid
 
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+
 # Node/front-end dependencies if added later
 node_modules/
 npm-debug.log*

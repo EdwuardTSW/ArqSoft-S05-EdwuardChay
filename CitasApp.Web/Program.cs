@@ -1,10 +1,16 @@
 using CitasApp.Domain.Interfaces;
+using CitasApp.Infrastructure.Persistence;
 using CitasApp.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("CitasApp");
+builder.Services.AddDbContext<CitasAppDbContext>(options =>
+    options.UseSqlite(connectionString));
 
 
 
