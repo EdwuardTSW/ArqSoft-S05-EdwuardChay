@@ -6,6 +6,7 @@
 
 using CitasApp.Domain.Interfaces;
 using CitasApp.Domain.Models;
+using CitasApp.Infrastructure.Mappers;
 
 namespace CitasApp.Infrastructure.Repositories
 {
@@ -18,8 +19,7 @@ namespace CitasApp.Infrastructure.Repositories
             _filePath = filePath;
 
             if (!File.Exists(_filePath))
-                File.WriteAllText(_filePath,
-                    "Id,PacienteId,MedicoId,Fecha,Hora,Motivo,Estado\n");
+                File.WriteAllText(_filePath, CitaCsvMapper.Encabezado + "\n");
         }
 
         // ── Helpers ─────────────────────────────────────────────────────────────
@@ -28,50 +28,29 @@ namespace CitasApp.Infrastructure.Repositories
         {
             var lista = new List<Cita>();
 
-            foreach (var linea in File.ReadAllLines(_filePath).Skip(1))
+            foreach (var linea in LeerLineasDeDatos())
             {
-                if (string.IsNullOrWhiteSpace(linea)) continue;
-                var p = linea.Split(',');
-                if (p.Length < 7) continue;
-
-                lista.Add(new Cita
-                {
-                    Id         = int.Parse(p[0]),
-                    PacienteId = int.Parse(p[1]),
-                    MedicoId   = int.Parse(p[2]),
-                    Fecha      = DateOnly.ParseExact(p[3], "yyyy-MM-dd"),
-                    Hora       = TimeOnly.ParseExact(p[4], "HH:mm"),
-                    Motivo     = p[5],
-                    Estado     = p[6]
-                });
+                var cita = CitaCsvMapper.DesdeLinea(linea);
+                if (cita is not null) lista.Add(cita);
             }
 
             return lista;
         }
 
+        private IEnumerable<string> LeerLineasDeDatos() =>
+            File.ReadAllLines(_filePath).Skip(1);
+
         private void EscribirTodos(List<Cita> citas)
         {
-            var lineas = new List<string>
-                { "Id,PacienteId,MedicoId,Fecha,Hora,Motivo,Estado" };
+            var lineas = new List<string> { CitaCsvMapper.Encabezado };
 
             foreach (var c in citas)
             {
-                lineas.Add(
-                    $"{c.Id}," +
-                    $"{c.PacienteId}," +
-                    $"{c.MedicoId}," +
-                    $"{c.Fecha:yyyy-MM-dd}," +
-                    $"{c.Hora:HH:mm}," +
-                    $"{Limpiar(c.Motivo)}," +
-                    $"{Limpiar(c.Estado)}"
-                );
+                lineas.Add(CitaCsvMapper.ALinea(c));
             }
 
             File.WriteAllLines(_filePath, lineas);
         }
-
-        private static string Limpiar(string texto) =>
-            (texto ?? string.Empty).Replace(",", ";");
 
         // ── Port ────────────────────────────────────────────────────────────────
 
