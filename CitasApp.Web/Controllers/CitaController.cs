@@ -1,4 +1,5 @@
 ﻿using CitasApp.Domain.Interfaces;
+using CitasApp.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CitasApp.Web.Controllers
@@ -30,6 +31,33 @@ namespace CitasApp.Web.Controllers
             ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
             ViewBag.Medicos = _medicoRepo.ObtenerTodos();
             return View(_citaRepo.ObtenerPorPaciente(pacienteId));
+        }
+
+        public IActionResult Crear()
+        {
+            CargarListas();
+            return View(new Cita { Fecha = DateOnly.FromDateTime(DateTime.Today), Hora = new TimeOnly(9, 0) });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Crear(Cita cita)
+        {
+            if (!ModelState.IsValid)
+            {
+                CargarListas();
+                return View(cita);
+            }
+
+            if (string.IsNullOrWhiteSpace(cita.Estado)) cita.Estado = "Pendiente";
+            _citaRepo.Agregar(cita);
+            return RedirectToAction(nameof(Index));
+        }
+
+        private void CargarListas()
+        {
+            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
+            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
         }
     }
 }

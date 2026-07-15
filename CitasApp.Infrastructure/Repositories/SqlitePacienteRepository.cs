@@ -72,5 +72,20 @@ namespace CitasApp.Infrastructure.Repositories
             using var r = cmd.ExecuteReader();
             return r.Read() ? LeerFila(r) : null;
         }
+
+        public void Agregar(Paciente paciente)
+        {
+            using var conn = new SqliteConnection(_connectionString);
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = @"
+                INSERT INTO Pacientes (Nombre, Apellido, Email, Telefono)
+                VALUES ($nombre, $apellido, $email, $telefono);";
+            cmd.Parameters.AddWithValue("$nombre", paciente.Nombre);
+            cmd.Parameters.AddWithValue("$apellido", paciente.Apellido);
+            cmd.Parameters.AddWithValue("$email", paciente.Email ?? string.Empty);
+            cmd.Parameters.AddWithValue("$telefono", paciente.Telefono ?? string.Empty);
+            cmd.ExecuteNonQuery();
+        }
     }
 }

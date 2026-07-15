@@ -27,5 +27,12 @@ namespace CitasApp.Infrastructure.Decorators
             Console.WriteLine($"[{DateTime.Now}] [DECORATOR] ObtenerPorId paciente: {id} - {(result != null ? "encontrado" : "no encontrado")}");
             return result;
         }
+
+        public void Agregar(Paciente paciente)
+        {
+            Console.WriteLine($"[{DateTime.Now}] [DECORATOR] Agregar paciente - inicio");
+            _inner.Agregar(paciente);
+            Console.WriteLine($"[{DateTime.Now}] [DECORATOR] Agregar paciente - fin");
+        }
     }
 }

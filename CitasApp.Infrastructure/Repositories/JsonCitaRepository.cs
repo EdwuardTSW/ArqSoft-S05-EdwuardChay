@@ -34,6 +34,14 @@ namespace CitasApp.Infrastructure.Repositories
         public List<Cita> ObtenerPorPaciente(int pacienteId) =>
             ObtenerTodos().Where(c => c.PacienteId == pacienteId).ToList();
 
+        public void Agregar(Cita cita)
+        {
+            var citas = ObtenerTodos();
+            cita.Id = citas.Count > 0 ? citas.Max(c => c.Id) + 1 : 1;
+            citas.Add(cita);
+            GuardarTodos(citas);
+        }
+
         public Cita? Confirmar(int citaId)
         {
             var citas = ObtenerTodos();
@@ -42,6 +50,12 @@ namespace CitasApp.Infrastructure.Repositories
 
             cita.Estado = "Confirmada";
 
+            GuardarTodos(citas);
+            return cita;
+        }
+
+        private void GuardarTodos(List<Cita> citas)
+        {
             var citasJson = citas.Select(c => new CitaJson
             {
                 Id = c.Id,
@@ -54,7 +68,6 @@ namespace CitasApp.Infrastructure.Repositories
             }).ToList();
 
             File.WriteAllText(_path, JsonSerializer.Serialize(citasJson, _options));
-            return cita;
         }
     }
 }

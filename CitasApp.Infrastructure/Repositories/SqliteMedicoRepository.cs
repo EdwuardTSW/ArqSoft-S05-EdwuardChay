@@ -69,5 +69,20 @@ namespace CitasApp.Infrastructure.Repositories
             using var r = cmd.ExecuteReader();
             return r.Read() ? LeerFila(r) : null;
         }
+
+        public void Agregar(Medico medico)
+        {
+            using var conn = new SqliteConnection(_connectionString);
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = @"
+                INSERT INTO Medicos (Nombre, Apellido, Especialidad, NumeroLicencia)
+                VALUES ($nombre, $apellido, $especialidad, $licencia);";
+            cmd.Parameters.AddWithValue("$nombre", medico.Nombre);
+            cmd.Parameters.AddWithValue("$apellido", medico.Apellido);
+            cmd.Parameters.AddWithValue("$especialidad", medico.Especialidad ?? string.Empty);
+            cmd.Parameters.AddWithValue("$licencia", medico.NumeroLicencia ?? string.Empty);
+            cmd.ExecuteNonQuery();
+        }
     }
 }

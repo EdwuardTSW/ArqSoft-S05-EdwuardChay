@@ -43,11 +43,34 @@ namespace CitasApp.Infrastructure.Repositories
             return lista;
         }
 
+        private void EscribirTodos(List<Paciente> pacientes)
+        {
+            var lineas = new List<string> { "Id,Nombre,Apellido,Email,Telefono" };
+
+            foreach (var p in pacientes)
+            {
+                lineas.Add($"{p.Id},{Limpiar(p.Nombre)},{Limpiar(p.Apellido)},{Limpiar(p.Email)},{Limpiar(p.Telefono)}");
+            }
+
+            File.WriteAllLines(_filePath, lineas);
+        }
+
+        private static string Limpiar(string texto) =>
+            (texto ?? string.Empty).Replace(",", ";");
+
         // ── Port ────────────────────────────────────────────────────────────────
 
         public List<Paciente> ObtenerTodos() => LeerTodos();
 
         public Paciente? ObtenerPorId(int id) =>
             LeerTodos().FirstOrDefault(p => p.Id == id);
+
+        public void Agregar(Paciente paciente)
+        {
+            var pacientes = LeerTodos();
+            paciente.Id = pacientes.Count > 0 ? pacientes.Max(p => p.Id) + 1 : 1;
+            pacientes.Add(paciente);
+            EscribirTodos(pacientes);
+        }
     }
 }

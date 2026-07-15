@@ -1,4 +1,5 @@
 ﻿using CitasApp.Domain.Interfaces;
+using CitasApp.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CitasApp.Web.Controllers
@@ -14,6 +15,18 @@ namespace CitasApp.Web.Controllers
         {
             var paciente = _repo.ObtenerPorId(id);
             return paciente == null ? NotFound() : View(paciente);
+        }
+
+        public IActionResult Crear() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Crear(Paciente paciente)
+        {
+            if (!ModelState.IsValid) return View(paciente);
+
+            _repo.Agregar(paciente);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

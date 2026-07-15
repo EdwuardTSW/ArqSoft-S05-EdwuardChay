@@ -23,5 +23,13 @@ namespace CitasApp.Infrastructure.Repositories
 
         public Medico? ObtenerPorId(int id) =>
             ObtenerTodos().FirstOrDefault(m => m.Id == id);
+
+        public void Agregar(Medico medico)
+        {
+            var medicos = ObtenerTodos();
+            medico.Id = medicos.Count > 0 ? medicos.Max(m => m.Id) + 1 : 1;
+            medicos.Add(medico);
+            File.WriteAllText(_path, JsonSerializer.Serialize(medicos, _options));
+        }
     }
 }

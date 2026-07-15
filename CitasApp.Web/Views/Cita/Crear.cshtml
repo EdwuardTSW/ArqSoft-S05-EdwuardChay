@@ -1,0 +1,55 @@
+@model Cita
+
+@{
+    var pacientes = ViewBag.Pacientes as List<Paciente> ?? new List<Paciente>();
+    var medicos = ViewBag.Medicos as List<Medico> ?? new List<Medico>();
+}
+
+<h1>Agregar cita</h1>
+
+<form asp-action="Crear" method="post">
+    <div class="mb-3">
+        <label asp-for="PacienteId" class="form-label">Paciente</label>
+        <select asp-for="PacienteId" class="form-select">
+            <option value="">Seleccione un paciente</option>
+            @foreach (var paciente in pacientes)
+            {
+                <option value="@paciente.Id">@paciente.Nombre @paciente.Apellido</option>
+            }
+        </select>
+        <span asp-validation-for="PacienteId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="MedicoId" class="form-label">Médico</label>
+        <select asp-for="MedicoId" class="form-select">
+            <option value="">Seleccione un médico</option>
+            @foreach (var medico in medicos)
+            {
+                <option value="@medico.Id">@medico.Nombre @medico.Apellido - @medico.Especialidad</option>
+            }
+        </select>
+        <span asp-validation-for="MedicoId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Fecha" class="form-label"></label>
+        <input asp-for="Fecha" type="date" class="form-control" />
+        <span asp-validation-for="Fecha" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Hora" class="form-label"></label>
+        <input asp-for="Hora" type="time" class="form-control" />
+        <span asp-validation-for="Hora" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Motivo" class="form-label"></label>
+        <input asp-for="Motivo" class="form-control" />
+        <span asp-validation-for="Motivo" class="text-danger"></span>
+    </div>
+    <input asp-for="Estado" type="hidden" value="Pendiente" />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
