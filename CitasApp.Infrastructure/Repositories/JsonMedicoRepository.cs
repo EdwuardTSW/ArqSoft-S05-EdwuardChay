@@ -1,0 +1,35 @@
+using CitasApp.Domain.Interfaces;
+using CitasApp.Domain.Models;
+using System.Text.Json;
+
+namespace CitasApp.Infrastructure.Repositories
+{
+    public class JsonMedicoRepository : IMedicoRepository
+    {
+        private readonly string _path;
+        private readonly JsonSerializerOptions _options = new() { WriteIndented = true };
+
+        public JsonMedicoRepository(string dataPath)
+        {
+            _path = Path.Combine(dataPath, "medicos.json");
+        }
+
+        public List<Medico> ObtenerTodos()
+        {
+            if (!File.Exists(_path)) return new();
+            var json = File.ReadAllText(_path);
+            return JsonSerializer.Deserialize<List<Medico>>(json, _options) ?? new();
+        }
+
+        public Medico? ObtenerPorId(int id) =>
+            ObtenerTodos().FirstOrDefault(m => m.Id == id);
+
+        public void Agregar(Medico medico)
+        {
+            var medicos = ObtenerTodos();
+            medico.Id = medicos.Count > 0 ? medicos.Max(m => m.Id) + 1 : 1;
+            medicos.Add(medico);
+            File.WriteAllText(_path, JsonSerializer.Serialize(medicos, _options));
+        }
+    }
+}
