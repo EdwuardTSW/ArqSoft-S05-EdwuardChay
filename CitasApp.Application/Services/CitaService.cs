@@ -3,6 +3,7 @@ using CitasApp.Domain.Models;
 
 namespace CitasApp.Application.Services
 {
+    // Service class for managing Cita entities, implementing the Observer pattern to notify observers when a Cita is confirmed.
     public class CitaService
     {
         private readonly ICitaRepository _repo;
