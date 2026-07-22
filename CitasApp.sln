@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11919.86 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitasApp.Domain", "CitasApp.Domain\CitasApp.Domain.csproj", "{7D20B890-BBF5-412E-9F8C-60C949FD9A93}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitasApp.Api", "CitasApp.Api\CitasApp.Api.csproj", "{6FF33717-AA7B-4958-9F41-1F4EBD714DAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitasApp.Application", "CitasApp.Application\CitasApp.Application.csproj", "{A0184BF6-1615-49DE-8155-5A9F4CBBF572}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitasApp.xUnit", "CitasApp\CitasApp.xUnit.csproj", "{E2668FB6-7465-46FF-857A-703D9B3144F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,8 +85,23 @@ Global
 		{A0184BF6-1615-49DE-8155-5A9F4CBBF572}.Release|x64.Build.0 = Release|Any CPU
 		{A0184BF6-1615-49DE-8155-5A9F4CBBF572}.Release|x86.ActiveCfg = Release|Any CPU
 		{A0184BF6-1615-49DE-8155-5A9F4CBBF572}.Release|x86.Build.0 = Release|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Debug|x64.Build.0 = Debug|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Debug|x86.Build.0 = Debug|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Release|x64.ActiveCfg = Release|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Release|x64.Build.0 = Release|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Release|x86.ActiveCfg = Release|Any CPU
+		{E2668FB6-7465-46FF-857A-703D9B3144F8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A85A45DC-5B49-44B8-8F64-8ED77D352A9E}
 	EndGlobalSection
 EndGlobal
