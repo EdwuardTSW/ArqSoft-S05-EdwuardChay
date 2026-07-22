@@ -27,19 +27,6 @@ public class PacienteControllerTest
         Assert.Equal(pacientesEsperados, modelo);
     }
 
-    [Fact]
-    public void PruebaTemporal_DebeFallarParaValidarCI()
-    {
-        // Arrange
-        var resultadoEsperado = true;
-
-        // Act
-        var resultadoObtenido = false;
-
-        // Assert
-        Assert.Equal(resultadoEsperado, resultadoObtenido);
-    }
-
     private sealed class PacienteRepositoryFake(List<Paciente> pacientes) : IPacienteRepository
     {
         public List<Paciente> ObtenerTodos() => pacientes;
